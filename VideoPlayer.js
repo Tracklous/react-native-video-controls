@@ -47,7 +47,6 @@ export default class VideoPlayer extends Component {
             volume: this.props.volume,
             rate: this.props.rate,
             // Controls
-
             isFullscreen: this.props.resizeMode === 'cover' || false,
             showTimeRemaining: true,
             volumeTrackWidth: 0,
@@ -112,7 +111,7 @@ export default class VideoPlayer extends Component {
             seekPanResponder: PanResponder,
             controlTimeout: null,
             volumeWidth: 150,
-            iconOffset: 0,
+            iconOffset: 7,
             seekWidth: 0,
             ref: Video,
         };
@@ -318,7 +317,7 @@ export default class VideoPlayer extends Component {
             ),
             Animated.timing(
                 this.animations.topControl.marginTop,
-                { toValue: -100 }
+                { toValue: -50 }
             ),
             Animated.timing(
                 this.animations.bottomControl.opacity,
@@ -326,7 +325,7 @@ export default class VideoPlayer extends Component {
             ),
             Animated.timing(
                 this.animations.bottomControl.marginBottom,
-                { toValue: -100 }
+                { toValue: -50 }
             ),
         ]).start();
     }
@@ -646,7 +645,7 @@ export default class VideoPlayer extends Component {
      * @return {float} volume handle position in px based on volume
      */
     calculateVolumePositionFromVolume() {
-        return this.player.volumeWidth * this.state.volume;
+        return this.player.volumeWidth / this.state.volume;
     }
 
 
@@ -951,7 +950,8 @@ export default class VideoPlayer extends Component {
         return(
             <Animated.View style={[
                 styles.controls.bottom,
-                {
+                {   
+                    paddingBottom:10,
                     opacity: this.animations.bottomControl.opacity,
                     marginBottom: this.animations.bottomControl.marginBottom,
                 }
@@ -1302,9 +1302,6 @@ const styles = {
             marginTop: -24,
             marginLeft: -24,
             padding: 16,
-        },
-        icon: {
-            marginLeft:7
         }
     }),
     seekbar: StyleSheet.create({
